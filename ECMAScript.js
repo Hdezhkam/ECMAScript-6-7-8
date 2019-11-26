@@ -701,3 +701,83 @@ userId.add(person1);
 userId.add(person2);
 
 console.log(userId.has(person2));
+
+//=============================================//
+//S22: Symbol
+//=============================================//
+
+//Boolearn,null,undefiend,Number,string,object(fuction,array)
+
+console.log(typeof true);
+console.log(typeof undefined);
+console.log(typeof {});
+console.log(typeof []);
+
+//primitive
+
+
+// const str = String('Hello World!');
+// const str2 = 'Hello World!';
+
+// console.log(str);
+// console.log(str2)
+
+// const symbol1 = Symbol('Description for developer')
+
+// console.log(String('a') === String('a'))   //true
+// console.log('a' === 'a')  //true
+
+// console.log(Number(2) === Number(2))  //true
+// console.log(2 === 2)  //true
+
+// console.log({} === {})   //false  because objects pointed to address, object is not permative
+
+// console.log(Symbol() === Symbol())  //false  symbol is permative but ant symbol pointed to uniqe description
+
+// const a = Symbol();
+
+// const b = Symbol();
+
+// console.log(a === b);
+
+// what is the perpuse?  mention to this exp.
+
+// class Person{
+//     constructor(name, age, job) {
+//         this.name = name;
+//         this.age = age;
+//         this.job = job;
+//     }
+// }
+
+// const person1 = new Person('Younes', 27, 'Programmer');
+// console.log(person1)
+
+// person1.job = 'Developer';
+// console.log(person1)
+
+const PERSONNAME = Symbol('Person name');
+const PERSONAGE = Symbol('Person age');
+const PERSONJOB = Symbol('Person job');
+
+class Person {
+    constructor(name, age, job) {
+        this[PERSONNAME] = name;
+        this[PERSONAGE] = age;
+        this[PERSONJOB] = job;
+    }
+
+    get name() {
+        return this[PERSONNAME];
+    }
+
+    set name(newName) {
+        this[PERSONNAME] = newName;
+    }
+}
+
+const person1 = new Person('Younes', 27, 'Programmer');
+console.log(person1);
+
+person1.name = 'Iman';
+console.log(person1.name);
