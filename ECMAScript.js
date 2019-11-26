@@ -141,14 +141,14 @@ const newArray = [...oldArray, 4, 5];
 console.log(newArray);
 
 const person = {
-    firstname: 'Younes',
-    lastname: 'Ghorbany',
+    firstname: 'Hamid',
+    lastname: 'Dezhkam',
     age: 30
 };
 
 const newPerson = {
     ...person,
-    age: 27
+    age: 35
 };
 
 console.log(newPerson);
@@ -184,8 +184,8 @@ console.log(getSum(2, 3));
 // let x = Object.create(null)  //Method 2 for create object
 
 let x = {  //Method 3 for create object
-    firstname: 'Younes',
-    lastname: 'Ghorbany',
+    firstname: 'Hamid',
+    lastname: 'Dezhkam',
     getName: function (name) {
         console.log(`my name: ${name}`);
     }
@@ -211,15 +211,15 @@ let newData = {
 
 console.log(newData);
 
-newData.getLastname('Ghorbany');
+newData.getLastname('Dezhkam');
 
 //=============================================//
 //S9: Object Destructuring
 //=============================================//
 
 const jsonData = {
-    firstname: 'younes',
-    lastname: 'ghorbany',
+    firstname: 'Hamid',
+    lastname: 'Dezhkam',
     email: 'test@example.com',
     gender: 'male',
     hobbys: ['gaming', 'programming', 'movie', 'meditation']
@@ -290,7 +290,7 @@ console.log(others);
 //         console.log(`My Name Is: ${this.firstname}`)
 //     }
 
-// const person1 = new Person('Younes', 'Ghorbany', 27);
+// const person1 = new Person('Hamid', 'Dezhkam', 35);
 // // person1.firstname = 'Jonah'
 // // console.log(person1.firstname)
 // console.log(person1);
@@ -342,7 +342,7 @@ class Person {
     }
 }
 
-const person1 = new Person('Younes', 'Ghorbany', 27);
+const person1 = new Person('Hamid', 'Dezhkam', 35);
 person1.firstname = 'Jonah';
 console.log(person1);
 console.log(person1.firstname);
@@ -367,13 +367,13 @@ class Person {
     }
 }
 // Class Method
-// const person1 = new Person('Younes', 'Ghorbany', 27);
+// const person1 = new Person('Hamid', 'Dezhkam', 35);
 // person1.sayMyName()
 
 
 // Statics Method
 // person1.goodPerson('UNS')
-Person.goodPerson('Younes');
+Person.goodPerson('Hamid');
 
 //=============================================//
 //S13: Subclass and Inheritance
@@ -404,7 +404,7 @@ class Programmer extends Person {
     }
 }
 
-const personInfo = ['Programmer', 'Younes', 'Ghorbany', 27];
+const personInfo = ['Programmer', 'Hamid', 'Dezhkam', 35];
 
 // const person1 = new Person(...personInfo)
 // person1.sayMyName()
@@ -431,11 +431,11 @@ const myArr = [1, 2, 3, 4, 5, 6, 7];
 //     console.log(myArr[key])
 // }
 
-// const obj = {
-//     firstname: 'Younes',
-//     lastname: 'Gh',
-//     age: 27
-// }
+const obj = {
+    firstname: 'Hamid',
+    lastname: 'Gh',
+    age: 35
+}
 
 // for(let key in obj){
 //     // console.log(key) //it shows key in objects
@@ -467,4 +467,28 @@ for (let myString of myStr) {
     console.log(myString);
 }
 
+//=============================================//
+//S15: Arrays.from (Create Array from number, string and param)
+//=============================================//
+
+const name = Array.from('Hamid');
+console.log(name);  //[H, a, m, i, d]
+
+const template = Array.from(`${2 + 10}`);
+console.log(template); // [1, 2]
+
+const lorem1 =
+    'Quis aute nisi amet enim excepteur occaecat veniam esse irure minim aliquip elit pariatur mollit.';
+const lorem2 =
+    'Sunt veniam proident velit est consectetur pariatur cillum enim anim.';
+
+let lines = Array.from([lorem1, lorem2], line => {
+    return `<li>${line}</li>`;
+});
+
+console.log(lines);
+
+let numbers = Array.from([3, 5, 4], num => num + num);
+
+console.log(numbers); // [6, 10, 8]
 
