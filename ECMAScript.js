@@ -492,3 +492,212 @@ let numbers = Array.from([3, 5, 4], num => num + num);
 
 console.log(numbers); // [6, 10, 8]
 
+//=============================================//
+//S16: Array.of() Array.fill()  Array (Create Array from number, string and param)
+//=============================================//
+
+'Array.of()'
+// const arr1 = [1,2,3,4];  //JS old Ver
+// console.log(arr1)
+
+// const arr2 = Array(7);
+// console.log(arr2); [ , , , , , , , ] !!!!
+
+// const arr3 = Array.of(7)  //solution is Array.of
+// console.log(arr3)
+
+'Array.fill()'
+
+const arr1 = [2, 3, 'a', 'b', 4];
+
+arr1.fill('c', -1); //add from end of array
+console.log(arr1) // [2,3,'a','b','c',4]
+
+let nums = ['one', 'two', 'three', 'five'];
+nums.splice(3, 0, 'four')
+console.log(nums)
+
+//=============================================//
+//S17: find and findIndex in Arrays
+//=============================================//
+
+//Array.prototype.find()
+//Array.prototype.findIndex()
+
+const friendsData = require('./data');  //in external file
+
+// const friend = friendsData.find(f => {
+//     return f.age > 25;
+// });
+
+const friend = friendsData.findIndex(f => {
+    return f.age === 29;
+});
+
+// const otherFriend = friendsData.map(f => {
+//     return f;
+// });
+
+console.log(friend);
+
+//=============================================//
+//S18: MAP()  Map is object with iterable capablility - Map() is constructor - new Map()
+//=============================================//
+
+const obj = {
+    firstname: 'Hamid'
+};
+
+let myFunction = () => {
+    console.log('Hello World');
+};
+
+let contacts = new Map(); //Map is object with iterable capablility
+
+contacts.set('Hamid Dezhkam', '093500000'); // set key value pair in contacts
+contacts.set(myFunction, 'Function on map'); // we can set function as well
+
+console.log(contacts.get(myFunction)); // Function on map
+
+//=============================================//
+//S19: MAP Methods
+//=============================================//
+
+const obj = {
+    firstname: 'Hamid'
+};
+
+let myFunction = () => {
+    console.log('Hello World');
+};
+
+let contacts = new Map();
+
+//get and set methods
+contacts.set('Younes Ghorbany', '093500000');
+contacts.set('Iman Madaeny', '0911000000');
+contacts.set('Sajad Bagherzade', '091200000');
+
+const iman = contacts.get('Iman Madaeny');
+
+console.log(iman); // 0911000000
+
+//Size Method
+console.log(contacts.size);
+
+// for(value of contacts){
+//     console.log(value)  // ['Younes Ghorbany', '093500000'],['Iman Madaeny', '0911000000'],['Sajad Bagherzade', '091200000']
+// } 
+
+// but if contacts was object result had "undefined"
+
+//clear
+// contacts.clear();   //clear map values (key and value)
+// console.log(contacts)
+
+//entries
+// const myContacts = contacts.entries();
+// console.table(myContacts)
+
+//forEach
+contacts.forEach(value => {
+    console.log(value);
+});
+
+//keys and values
+
+// const myContacts = contacts.keys();
+// console.table(myContacts)
+
+const myContacts = contacts.values();
+console.table(myContacts);
+
+//=============================================//
+//S20: SET()  Set is object with iterable capablility - Set() is constructor - new Set()
+//Set likes Map , except : in set every dublicated elements amitted, this constructor suitable for Id or any uniq data ckecking
+//=============================================//
+
+// let userId = [`a1`,`b1`,`d2`,`a1`];
+// let userId = new Set([`a1`,`b1`,`d2`,`a1`]);
+
+// console.log(userId);
+
+// userId.forEach(id => {
+//     console.log(id)
+// })
+
+let userId = new Set();
+console.log(userId);
+
+const obj = {
+    firstname: 'UNS',
+    id: 'a1'
+};
+
+userId.add(obj);
+
+
+console.log(userId);
+
+console.log(userId.size);
+
+//clear
+//delete
+//entries
+// console.table(userId.entries())
+//forEach
+//Keys
+//values
+console.table(userId.keys());
+//has
+
+//=============================================//
+//S21: weak map - weak set (garbeg collection managment)
+//=============================================//
+
+//WeakMap
+//get,set,has,delete
+//va tekrar shavande nist
+
+// let simpleMap = new Map();
+// let person1 = {name: 'Younes'};
+
+// simpleMap.set(person1, 'good person');
+
+// console.log(simpleMap.get(person1))
+
+// person1 = null;
+
+// console.table(simpleMap.entries())
+
+// let simpleMap = new WeakMap();
+// let person1 = {name: 'Younes'};
+
+// simpleMap.set(person1, 'good person');
+
+// console.log(simpleMap.get(person1))
+
+// person1 = null;
+
+// console.table(simpleMap.get(person1))
+
+'---------------------------------------';
+//WeakSet
+//Terkrar Shavande Nist
+//get,size always 0
+
+const person1 = {
+    name: 'bob',
+    id: 1
+};
+const person2 = {
+    name: 'rob',
+    id: 1
+};
+
+let userId = new WeakSet();
+
+userId.add(person1);
+userId.add(person2);
+
+console.log(userId.has(person2));
