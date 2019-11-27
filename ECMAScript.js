@@ -781,3 +781,194 @@ console.log(person1);
 
 person1.name = 'Iman';
 console.log(person1.name);
+
+//=============================================//
+//S23: Promise And Callback
+//=============================================//
+
+Asyncronise(event loop)
+
+// setTimeout(() => console.log('Line 1'), 0);
+
+// console.log('Line 2');
+
+// setTimeout(() => console.log('Line 3'), 1000);
+
+// for (let i = 0; i < 10001; i++) {
+//     if (i === 10000) {
+//         console.log('Loop done!');
+//     }
+// }
+
+callback
+
+// function print(text){
+//     console.log(text);
+// }
+
+// const print = function(text){
+//     console.log(text)
+// }
+
+// const print = text => {
+//     console.log(text)
+// }
+
+// // print('Hello World')
+
+// const run = (callback, input) => {
+//     callback(input)
+// }
+
+// run(print, 'Hello World!')
+
+// $.('.li').click(() => {
+//     console.log('Clicked')
+// })
+
+// const $ = function(selector){
+//     //...
+// }
+// $.prototype.click = function(callback){
+//     //some stuff
+//     callback()
+// }
+
+'------------------------------------';
+interview question:
+a(x)(y)
+
+function a(x) {
+    console.log(x);
+    return function (y) {
+        console.log(x + y);
+    };
+}
+
+a(2)(3);
+
+//=============================================//
+//S24: Promise And Callback
+//=============================================//
+//callback hell
+
+// $.ajax(url1,data1) => {
+//     //kari ba data anjam midam
+//     $.ajax(url2, data2) => {
+//         //do some work
+//         $.ajax(url3, data3) => {
+//             //sdsdsd
+//         }
+//     }
+// }
+
+'then,catch,All,race';
+// promise is JS constructor
+
+// const firstPromise = new Promise((resolve, reject) => {
+
+//     console.log('Promise is running');
+//     //some work
+//     //work
+
+//     //return data  //this data abtain by reslove from server
+
+//     reject('error')
+//     resolve('promise is resolved.')
+// })
+// console.log(firstPromise)
+
+// firstPromise.then(data => {    //this data abtain by reslove from server
+
+//     console.log(data)
+// })
+
+// firstPromise.catch(data => {
+//     console.log(data);
+// })
+
+// console.log('----------------------');
+// console.log('last line in the code');
+// console.log('----------------------');
+
+'-------------------------------------------';
+
+// const someFunction = () => {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             // console.log('1 second has passed.');
+//             resolve('1 second has passed.')
+//         },1000)
+//     })
+// }
+
+// const simplePromise = someFunction();
+
+// console.log(simplePromise);
+
+// simplePromise.then(msg => {
+//     console.log(msg)
+// })
+
+// <pending>
+
+const one = () => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            // console.log('1 second has passed.');
+            resolve('1 second has passed.');
+        }, 1000);
+    });
+};
+
+const two = () => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            // console.log('1 second has passed.');
+            resolve('2 second has passed.');
+        }, 2000);
+    });
+};
+
+const promiseOne = one();
+const promiseTwo = two();
+
+const promiseArray = [promiseOne, promiseTwo];
+
+Promise.all(promiseArray).then(data => {   //.all  .then ( .then when activated that all promise work done)
+    console.log(data);
+});
+
+('race');
+Promise.race(promiseArray).then(data => {  //.race  .then (.then when activated that one of promise work done)
+    console.log(data);
+});
+
+//=============================================//
+//S25: Chaning Promises
+//=============================================//
+
+new Promise((resolve, reject) => {
+    setTimeout(() => reject('Something happend.'), 1000);
+    setTimeout(() => resolve(1), 1000);
+})
+    .then(result => {
+        console.log(`Result is:${result}`); // 1
+        return result * 2;
+    })
+    .then(result => {
+        console.log(`Result is:${result}`); // 2
+        return result * 2;
+    })
+    .then(result => {
+        console.log(`Result is:${result}`); // 4
+        return result * 2;
+    })
+    .catch(err => {
+        console.log(err);
+    });
+
+
+//=============================================//
+//S26: Promise And Callback
+//=============================================//
