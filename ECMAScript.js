@@ -970,5 +970,454 @@ new Promise((resolve, reject) => {
 
 
 //=============================================//
-//S26: Promise And Callback
+//S26: Proxy
 //=============================================//
+//Proxy ia JS constructor
+
+// const handler = {
+//     get: (target, propName) => {   //trap
+//         // console.log(target);
+//         // console.log(propName);
+
+//         return target[propName]
+//         // return target["name"]
+//     },
+//     set: (target, propName, newValue) => {  //trap
+//         // console.log(target);
+//         // console.log(propName);
+//         // console.log(newValue);
+
+//         if(propName == 'age'){
+//             if(typeof newValue !== 'number'){
+//                 throw new TypeError('Age must be a valid number.')
+//             } else {
+//                 target[propName] = newValue;
+//             }
+//         } else {
+//             target[propName] = newValue;
+//         }
+//     },
+//     has: (target, propName) => {
+//         console.log('Checking.......');
+//         // return false;
+//         return true;
+//     }
+// }
+
+// const newObj = new Proxy({}, handler);
+
+// newObj.name = 'Younes';
+// // newObj.age = 'Hello';
+// newObj.age = 27;
+// newObj.job= 'Developer'
+
+// console.log(`Name: ${newObj.name}`);
+// console.log(`Age: ${newObj.age}`);
+// console.log(`Job: ${newObj.job}`);
+// // console.log(`Address: ${newObj.address}`);
+
+// 'has'
+// if('name' in newObj){
+//     console.log('I found it.')
+// }
+
+//--------------------------------------------------------------
+// class Person{
+//     constructor(name, age, job) {
+//         this.name = name;
+//         this.age = age;
+//         this.job = job;
+//     }
+//     printInfo() {
+//         console.log(this.name, this.age, this.job);
+//     }
+// }
+
+// const handler = {
+//     get: (target, propName) => {
+//         console.log(`Someone is trying to get ${propName} property`);
+//     }
+// }
+
+// const person1 = new Person('Younes', 27, 'Developer')
+
+// const personProxy = new Proxy(person1, handler);
+
+// console.log(person1.name)
+// console.log(personProxy.name)
+
+//---------------------------------------------------------------
+'apply';
+
+const sum = (x, y) => {
+    return x + y;
+};
+
+const handler = {
+    apply: (target, thisArg, argsList) => {
+        // console.log(target);
+        // console.log(thisArg);
+        // console.log(argsList);
+        // return target(argsList[0], argsList[1]) * 100;
+        return target(argsList[0], argsList[1]) * 100;
+    }
+};
+
+const sumProxy = new Proxy(sum, handler);
+
+console.log(sum(2, 9));
+//Middleware
+console.log(sumProxy(2, 9));
+
+//=============================================//
+//S27: Reflect  (prevent silent errors)
+//=============================================//
+
+// console.log(typeof 1);
+// console.log(typeof data)
+// Reflect()  //is global object and it's not need to create new Reflect, it's like Math method
+// new Reflect
+
+console.log(Math.random());
+console.log(Math.floor(Math.random() * 30));
+
+const x = {
+    a: 1,
+    b: 2
+};
+
+console.log(Reflect.get(x, 'a'));
+// console.log(1.a)
+
+const arr = ['Younes', 'Iman', 'Sajad'];
+
+console.log(Reflect.get(arr, 0));  //sajad
+
+const obj = {
+    name: 'Younes'
+};
+
+console.log(obj.hasOwnProperty('name')); //true 
+
+console.log('name' in obj); //true 
+
+console.log(Reflect.has(obj, 'name')); //true 
+
+
+//=============================================//
+//S27: generators  ()
+//=============================================//
+
+// function* generator1(){
+//     console.log('Line 1');
+//     yield 1; // PAUSE
+//     console.log('Line 2')
+// }
+
+// // generator1()
+// const gen = generator1();
+// console.log(gen);
+
+// gen.next()
+// gen.next();
+// gen.next();
+// gen.next();
+// gen.next();
+// gen.next();
+// gen.next()
+
+//---------------------------------------
+
+function* counter() {
+    let i = 0;
+    // console.log(Infinity)
+    while (true) {
+        console.log('Before yield');
+        // yield i++; //PAUSE
+        i++;
+        console.log(i);
+        const reset = yield i;
+        if (reset) {
+            i = 0;
+        }
+        console.log('After yield');
+    }
+}
+
+const counter1 = counter();
+console.log(counter1);
+counter1.next();
+counter1.next();
+counter1.next();
+counter1.next(true);
+counter1.next();
+counter1.next();
+counter1.next();
+
+
+//=============================================//======================= Not Important
+//S29: Iterables and iterators  
+//=============================================//
+
+'Iterables and iterators';
+
+//Arrays,Map,WeakMap,String,Set,WeakSet
+
+// const string1 = 'Hello World!';
+// //for...of
+
+// console.log(string1[Symbol.iterator])
+
+// for(let letter of string1){
+//     console.log(letter)
+// }
+
+// const obj = {
+//     *[Symbol.iterator](){
+//         yield 1;
+//         yield 2;
+//         yield 3;
+//     },
+//     name :'Younes'
+// }
+
+// console.log(obj[Symbol.iterator])
+
+// for(let name of obj){
+//     console.log(name)
+// }
+
+// console.log([...obj])
+
+'---------------------------------------------------';
+
+// const string1 = new String('Hello World');
+// string1.next()
+// console.log(string1[Symbol.iterator]().next())
+
+// string1[Symbol.iterator] = function() {
+//     //return object = iterator object
+//     //it must have next() property
+//     return {
+//         allDone: false,
+//         counter: 0,
+//         next: function() {
+//             if (!this.allDone) {
+//                 this.counter++;
+//                 if(this.counter === 6){
+//                     this.allDone = true;
+//                 }
+//                 return {
+//                     value: 'Toplearn',
+//                     done: false
+//                 };
+//             } else {
+//                 return {
+//                     done: true
+//                 };
+//             }
+//         }
+//     };
+// };
+
+// for (let letter of string1) {
+//     console.log(letter);
+// }
+
+'------------------------------------------------------';
+
+function makeRangeIterator(start = 0, end = Infinity, step = 1) {
+    let nextIndex = start;
+    let iterationCount = 0;
+
+    return {
+        next: function () {
+            let result;
+            if (nextIndex < end) {
+                result = { value: nextIndex, done: false };
+                nextIndex += step;
+                iterationCount++;
+                return result;
+            }
+            return { value: iterationCount, done: true };
+        }
+    };
+}
+
+let it = makeRangeIterator(1, 90, 3);
+
+let result = it.next();
+while (!result.done) {
+    console.log(result.value); // 1 3 5 7 9
+    result = it.next();
+}
+
+console.log('Iterated over sequence of size: ', result.value); // [5 numbers returned, that took interval in between: 0 to 10]
+
+
+//=============================================//======================= ES7
+//S30: 
+//=============================================//
+//ES7
+
+// const a = 2 * 2 * 2 * 2 * 2
+// const a = 3 ** 2.5
+// const a = 2 ** (3 ** 2);
+// const c = (2 ** 3) ** 2;
+// console.log(a);
+// console.log(c)
+
+// //Python and php
+// const b = 2 ** 5
+// console.log(b)
+
+// const d = -(2 ** 5);
+// console.log(d)
+
+'-----------------------------------------';
+//Includes
+//return boolean
+//indexOf
+
+// const arr = [1,2,3,4,5]
+// // if(arr.indexOf(29) > -1){
+// //     console.log('Number is found')
+// // }else {
+// //     console.log('Number is not found')
+// // }
+
+// if (arr.includes(29)) {
+//     console.log('Number is found');
+// } else {
+//     console.log('Number is not found');
+// }
+
+'-------------------------------------------';
+//Destructuring Rest operators
+
+// const data = {
+//     name: 'Younes',
+//     age: 27,
+//     job: 'Developer'
+// }
+
+// const name = data.name;
+// const age = data.age;
+// const job = data.job;
+
+// const {name ,age, job} = data;
+
+// const sum = (...numbers) => {
+//     console.log(numbers);
+//     return numbers[0] + numbers[1]
+// }
+
+const sum = (...[a, b]) => {
+    console.log(a, b);
+    return a + b;
+};
+
+console.log(sum(2, 3));
+
+
+//=============================================//======================= ES7
+//S31: 'Async && Await'
+//=============================================//
+
+'Async && Await';
+
+const one = () => {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            console.log('Done!');
+            resolve('2 second have passed!.');
+        }, 2000);
+    });
+};
+
+async function two() {
+    console.log('Calling function one()');
+    // one().then(result => {
+    //     console.log(result);
+    // })
+    const oneResponse = await one();
+    console.log(oneResponse);
+}
+
+// const two = async () => {
+
+// }
+
+two();
+
+console.log('Last line of code.');
+
+//=============================================//======================= ES8
+//S32: Object.values() and Object.entries()
+//=============================================//
+
+//ES8
+
+//Object.values() and Object.entries()
+
+// const user = {
+//     fullname: 'Younes Ghorbany',
+//     age: 27,
+//     job: 'Developer'
+// }
+
+// const userValues = Object.values(user);
+
+// // const userValues = [];
+// // for(prop in user){
+// //     userValues.push(user[prop]);
+// // }
+
+// console.log(userValues)
+
+// const userEntries = Object.entries(user);
+
+// console.log(userEntries);
+// console.log(userEntries[0][1]);
+
+'-----------------------------------------------------';
+
+//str.padStart and str.padEnd
+
+// const name = 'Younes Ghorbany'
+
+// console.log(name.padEnd(25,) + 'test');
+// console.log(name)
+
+// console.log(name.padStart(25,))
+
+'------------------------------------------------------';
+//Object.getOwnPropertyDiscriptos()
+
+// const user = {
+//     fullname: 'Younes Ghorbany',
+//     age: 27,
+//     job: 'Developer'
+// };
+
+// const descriptors = Object.getOwnPropertyDescriptors(user);
+// console.log(descriptors);
+
+'-----------------------------------------------------';
+
+//ES1
+const arr1 = [1, 2, 3, 4, 5, 6];
+console.log(arr1);
+
+//ES5
+
+const obj = { name: 'Younes', age: 27 };
+console.log(obj);
+
+//ES8
+
+const sum = (x, y) => {
+    return x + y;
+};
+
+console.log(sum(2, 3));
